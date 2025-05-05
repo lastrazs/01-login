@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+    <h1>Perfil de Usuario</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <div>
+        <h2>Información Básica</h2>
+        <p>Nombre: {{ user.name }}</p>
+        <p>Email: {{ user.email }}</p>
+    </div>
+    
+    <div>
+        <h2>Información Adicional</h2>
+        <form method="POST" action="/update_profile">
+            <label>Tipo de Documento:
+                <input type="text" name="doc_type" value="{{ user_metadata.doc_type or '' }}">
+            </label><br>
+            
+            <label>Número de Documento:
+                <input type="text" name="doc_number" value="{{ user_metadata.doc_number or '' }}">
+            </label><br>
+            
+            <label>Dirección:
+                <input type="text" name="address" value="{{ user_metadata.address or '' }}">
+            </label><br>
+            
+            <label>Teléfono:
+                <input type="text" name="phone" value="{{ user_metadata.phone or '' }}">
+            </label><br>
+            
+            <button type="submit">Actualizar Perfil</button>
+        </form>
+    </div>
+    
+    <a href="/">Volver al inicio</a>
+</body>
+</html>
